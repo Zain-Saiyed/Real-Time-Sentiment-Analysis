@@ -129,7 +129,7 @@ dmypy.json
 .pyre/
 
 # Model Directory 
-./flask_application/model/
+flask_application/model/
 
 # a python file
-./flask_application/twitterflies.py
+flask_application/twitterflies.py
