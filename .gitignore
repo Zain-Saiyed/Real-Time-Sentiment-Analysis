@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Model Directory 
+./flask_application/model/
+
+# a python file
+./flask_application/twitterflies.py
