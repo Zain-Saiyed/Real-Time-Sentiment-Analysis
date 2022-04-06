@@ -33,6 +33,28 @@
             padding: 5px;
         }
 
+        textarea[type=text] {
+          width: 100%;
+            height: 150px;
+          padding: 12px 20px;
+          box-sizing: border-box;
+          border: 2px solid red;
+          border-radius: 10px;
+            font-size: 1vw;
+            wrap-option:;
+        }
+        input[type=button], input[type=submit], input[type=reset] {
+              background-color: rgba(238, 51, 78, 0.88);
+              border: none;
+            font-size: 1vw;
+            width: 25%;
+            border-radius: 15px;
+              color: #262626;
+              text-decoration: none;
+
+              cursor: pointer;
+            }
+
         @media screen and (max-width: 650px) {
             .intro{
                 margin: auto;
@@ -89,20 +111,25 @@
     </style>
 </head>
 <body>
-<div style="background: rgba(255,255,255,0);text-align: center;padding-bottom: 5%;margin-bottom: 50%">
-    <div class="w3-half"> <h2 style="margin-top: 20%;color: #1da1f2;text-align: left;padding-left: 13%">Twitter Sentiment Analysis</h2>
-    <p style="font-family: Roboto ; font-size: 1vw;color: rgba(0,0,0,0.75);text-align: center">
-        <b>Sentiment Analysis :</b> The process of detecting positive, neutral or negative sentiment behind a person’s text. 
-        <br><br><br>      
-    <h3 style="color:brown">Scroll down for live feed classification results :</h3>
-
+<div style="background: rgba(255,255,255,0);text-align: center;padding-bottom: 5%;margin-bottom: 40%">
+        <div class="w3-half"> <h2 style="margin-top: 20%;color: #1da1f2;text-align: left;padding-left: 13%">Twitter Sentiment Analysis</h2>
+    <p style="font-family: Roboto ; font-size: 1vw;color: rgba(0,0,0,0.75);text-align: left;padding-left: 13%">
+        <b>This page is a realtime Tweet-sentiment-classifier which is trained on Zomato-Delivery-Guy case and how sentiments around it revolve.
+            We tried to create a webapp that would classify a given tweet or even fetch new tweets using tweepy and update the webapp.</b>
+        <br><br><br>
+        <h3 style="color:#262626">Try Classifying a tweet:</h3>
     </p>
-
+            <div style="padding-left: 15%;margin-bottom: 20px">
+        <form action="/data" method = "POST">
+            <textarea type = "text" name = "Name" wrap="hard"></textarea>
+    <input type = "submit" value = "Find Sentiment" />
+</form></div>
     </div>
     <div class="w3-half">
         <img src="{{url_for('static', filename='main.jpg')}}" width="100%">
     </div>
 </div>
+<h3 style="color:#ee334e;text-align: center">Scroll down for live feed classification results :</h3>
 <!--<h2 style="text-align: center;color: black">Twitter Sentiment Analysis</h2>-->
     {%for i in range(0, len)%}
     <div class="w3-container" style="background-color: white;margin:5%;margin-left: 20%;margin-right: 20%;border-radius: 25px;padding: 2%;-webkit-box-shadow: 10px 10px 70px -24px rgba(0,0,0,0.75);-moz-box-shadow: 10px 10px 70px -24px rgba(0,0,0,0.75);box-shadow: 10px 10px 70px -24px rgba(0,0,0,0.75);" >

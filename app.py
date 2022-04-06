@@ -1,3 +1,4 @@
+from flask import Flask,render_template,request
 from flask import Flask,render_template
 import json
 import twitterfiles
@@ -46,6 +47,7 @@ def predict(tweets):
         l.append(round(get_polarity(model.predict([sent])),2))
     return l
 
+
 # def predict(tweets):
 #     l=[]
 #     for i in tweets:
@@ -54,19 +56,28 @@ def predict(tweets):
 #     return l
 
 
+tweets=gettweets()
+# tweets =["#HiteshaChandranee releases statement | Says haven't left Bengaluru Urges people not to form opinions until probe… https://t.co/q6fzBlcaj0",
+# 'RT @KrishanPandit02: #HiteshaChandranee one of best funny meme video guyz see this #ReinstateKamaraj #Kamaraj #zomatodeliveryboy #Femin…',
+# 'RT @yaifoundations: .#ZomatoDeliveryBoyHe is the only earning man in his family &amp; he lost his job bec of false allegation &amp; hastiness by p…',
+# "RT @akasshngupta: #ReinstateKamaraj!The guy lost his job &amp; pride due to an arrogant influencer who seemed to be begging for 'free' food fo…",
+# 'RT @gaur_vips: #rippedjeans is an attempt of feminists to divert the attention from #zomatodeliveryboy']
+predictions = predict(tweets)
+print(len(tweets))
+
 @app.route('/')
 def hello_world():
-    tweets=gettweets()
-    print("\n*** Tweets fetched successfully...\n")
-    #tweets =["#HiteshaChandranee releases statement | Says haven't left Bengaluru Urges people not to form opinions until probe… https://t.co/q6fzBlcaj0",
- #'RT @KrishanPandit02: #HiteshaChandranee one of best funny meme video guyz see this #ReinstateKamaraj #Kamaraj #zomatodeliveryboy #Femin…',
- #'RT @yaifoundations: .#ZomatoDeliveryBoyHe is the only earning man in his family &amp; he lost his job bec of false allegation &amp; hastiness by p…',
- #"RT @akasshngupta: #ReinstateKamaraj!The guy lost his job &amp; pride due to an arrogant influencer who seemed to be begging for 'free' food fo…",
- #'RT @gaur_vips: #rippedjeans is an attempt of feminists to divert the attention from #zomatodeliveryboy']
-    predictions = predict(tweets)
-    print(len(tweets))
     return render_template('index.html',len=len(tweets),tweet=tweets,preds = predictions)
 
+@app.route('/data/', methods = ['POST', 'GET'])
+def data():
+    if request.method == 'GET':
+        return f"The URL /data is accessed directly. Try going to '/' to submit form"
+    if request.method == 'POST':
+        form_data = request.form
+        tex=form_data.to_dict()['Name']
+        pred=predict([tex])
+        return render_template('data.html',pr= pred[0],text=tex,len=len(tweets),tweet=tweets,preds = predictions)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
